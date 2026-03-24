@@ -1,15 +1,18 @@
 from fastapi import APIRouter
+from app.schemas.agent import AgentRequest, AgentResponse
+from app.agent.runtime import run_agent
 
-from app.schemas.chat import ChatRequest, ChatResponse
+from app.schemas.chat import ChatRequest
 
 
 router = APIRouter(tags=["chat"])
 
 
-@router.post("/chat", response_model=ChatResponse)
-async def chat(payload: ChatRequest) -> ChatResponse:
-    return ChatResponse(
-        reply=f"收到你的消息：{payload.message}",
+@router.post("/chat", response_model=AgentResponse)
+async def chat(payload: ChatRequest) -> AgentResponse:
+    agent_request = AgentRequest(
+        message=payload.message,
         session_id=payload.session_id,
-        status="ok",
+        history=[]
     )
+    return run_agent(agent_request)

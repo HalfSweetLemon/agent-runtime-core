@@ -27,3 +27,5 @@ site/
 !.env.example
 
 .DS_Store
+
+notes/

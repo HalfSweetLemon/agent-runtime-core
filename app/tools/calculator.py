@@ -9,7 +9,7 @@ class CalculatorTool:
 
     if operator == "add":
       return str(a + b)
-    if operator == "substract":
+    if operator == "subtract":
       return str(a - b)
     if operator == "multiply":
       return str(a * b)
